@@ -11,6 +11,9 @@ from warnings import filterwarnings
 
 filterwarnings("ignore")
 
+#Import functions
+from src.ack_scan import ack_scan
+
 def main():
     # Create object ArgumentParser to get arguments from command line
     parser = argparse.ArgumentParser(description="Network Scanning Tool")
@@ -114,7 +117,12 @@ def main():
     elif args.tcp_scan:
         print("Performing TCP Scan...")
     elif args.ack_scan:
-        print("Performing ACK Scan...")
+        filtered_ports = ack_scan(ip, ports)
+        print(
+            f"Filtered ports: {', '.join(map(str, filtered_ports))}"
+            if filtered_ports
+            else "Filtered ports: None"
+        )
     elif args.banner_grabbing:
         print("Performing Banner Grabbing...")
     elif args.http_header:
