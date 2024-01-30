@@ -168,6 +168,7 @@ def handler(signum, frame) -> None:
     if res in options:
         exit(1)
 
+
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, handler)
     main()
