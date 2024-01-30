@@ -13,6 +13,7 @@ filterwarnings("ignore")
 
 #Import functions
 from src.ack_scan import ack_scan
+from src.os_detection import os_detection
 
 def main():
     # Create object ArgumentParser to get arguments from command line
@@ -128,7 +129,8 @@ def main():
     elif args.http_header:
         print("Performing HTTP header...")
     elif args.os_detection:
-        print("Performing Operating system detection...")
+        os = os_detection(ip)
+        print(f"Operating system: {os}")
     elif args.discover_devices:
         print("Performing Devices discovedred...")
     else:
