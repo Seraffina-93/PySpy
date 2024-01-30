@@ -14,6 +14,10 @@ To run PySpy Scanner, you need to have the following installed on your system:
 
 First, clone the repository or download the source code. Then, navigate to the directory where the code is located and install the required dependencies using pip
 
+```bash
+pip install -r requirements.txt
+```
+
 ## Usage
 
 To use the PySpy Scanner, navigate to the directory containing the main.py file and use the following command syntax:
