@@ -135,15 +135,22 @@ def validate_ip_address(target_ip: str) -> bool:
         print(colored(f"The IP address {target_ip} is not valid", "red"))
         return False
 
-
 def validate_by_domain_address(ip_or_domain: str):
     try:
-        ip = socket.gethostbyname(ip_or_domain)
-        print(colored(f"The IP address or domain {ip} is valid.", "green"))
-        return ip, True
-    except socket.gaierror:
-        print(colored(f"The IP address or domain {ip_or_domain} is not valid", "red"))
-        return "", False
+        # Check if the input is a valid IP address first
+        ip_address(ip_or_domain)
+        print(colored(f"The IP address {ip_or_domain} is valid", "green"))
+        return ip_or_domain, True
+    except ValueError:
+        # If not a valid IP address, try resolving as a domain
+        try:
+            ip = socket.gethostbyname(ip_or_domain)
+            print(colored(f"The domain {ip_or_domain} resolved to IP {ip} could be valid instead", "yellow"))
+            return "", True
+        except socket.gaierror:
+            print(colored(f"The IP address or domain {ip_or_domain} is not valid", "red"))
+            return "", False
+
 
 def handler(signum, frame) -> None:
     options = ["y", ""]
