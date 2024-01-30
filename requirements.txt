@@ -1,0 +1,4 @@
+ipaddress==1.0.23
+Pygments==2.17.2
+scapy==2.5.0
+termcolor==2.4.0
