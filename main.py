@@ -14,6 +14,7 @@ filterwarnings("ignore")
 #Import functions
 from src.ack_scan import ack_scan
 from src.os_detection import os_detection
+from src.banner_grabbing import banner_grabbing
 
 def main():
     # Create object ArgumentParser to get arguments from command line
@@ -125,7 +126,8 @@ def main():
             else "Filtered ports: None"
         )
     elif args.banner_grabbing:
-        print("Performing Banner Grabbing...")
+        banner = banner_grabbing(ip, ports[0])
+        print(f"Banner: {banner}")
     elif args.http_header:
         print("Performing HTTP header...")
     elif args.os_detection:
