@@ -16,6 +16,7 @@ from src.ack_scan import ack_scan
 from src.os_detection import os_detection
 from src.banner_grabbing import banner_grabbing
 from src.enumerate import syn_scan, tcp_connect_scan
+from src.http_header_evaluation import http_header_evaluation
 
 def main():
     # Create object ArgumentParser to get arguments from command line
@@ -141,6 +142,8 @@ def main():
         print(f"Banner: {banner}")
     elif args.http_header:
         print("Performing HTTP header...")
+        headers = http_header_evaluation(ip)
+        print(f"HTTP headers: {headers}")
     elif args.os_detection:
         os = os_detection(ip)
         print(f"Operating system: {os}")
