@@ -128,6 +128,7 @@ def main():
         open_ports = tcp_connect_scan(ip, ports)
         print(f"Open ports: {', '.join(map(str, open_ports))}")
     elif args.ack_scan:
+        print("Performing ACK Scan...")
         filtered_ports = ack_scan(ip, ports)
         print(
             f"Filtered ports: {', '.join(map(str, filtered_ports))}"
@@ -135,6 +136,7 @@ def main():
             else "Filtered ports: None"
         )
     elif args.banner_grabbing:
+        print("Performing Banner Grabbing...")
         banner = banner_grabbing(ip, ports[0])
         print(f"Banner: {banner}")
     elif args.http_header:
