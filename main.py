@@ -1,4 +1,5 @@
 import argparse
+import json
 import signal
 import socket
 from ipaddress import ip_address
@@ -17,6 +18,7 @@ from src.os_detection import os_detection
 from src.banner_grabbing import banner_grabbing
 from src.enumerate import syn_scan, tcp_connect_scan
 from src.http_header_evaluation import http_header_evaluation
+from src.device_discovery import discover_devices 
 
 def main():
     # Create object ArgumentParser to get arguments from command line
@@ -149,7 +151,15 @@ def main():
         os = os_detection(ip)
         print(f"Operating system: {os}")
     elif args.discover_devices:
-        print("Performing Devices discovedred...")
+        print("Performing Devices Detection...")
+        devices = discover_devices()
+        result = json.dumps(devices, indent=4)
+        colourful = highlight(
+            result,
+            lexer=JsonLexer(),
+            formatter=Terminal256Formatter(),
+        )
+        print(f"devices {colourful}")
     else:
         print("Please select a scan type")
 
