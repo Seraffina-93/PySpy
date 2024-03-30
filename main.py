@@ -15,7 +15,7 @@ filterwarnings("ignore")
 from src.ack_scan import ack_scan
 from src.os_detection import os_detection
 from src.banner_grabbing import banner_grabbing
-from src.enumerate import syn_scan
+from src.enumerate import syn_scan, tcp_connect_scan
 
 def main():
     # Create object ArgumentParser to get arguments from command line
@@ -125,6 +125,8 @@ def main():
         )
     elif args.tcp_scan:
         print("Performing TCP Scan...")
+        open_ports = tcp_connect_scan(ip, ports)
+        print(f"Open ports: {', '.join(map(str, open_ports))}")
     elif args.ack_scan:
         filtered_ports = ack_scan(ip, ports)
         print(
