@@ -145,6 +145,7 @@ def main():
         headers = http_header_evaluation(ip)
         print(f"HTTP headers: {headers}")
     elif args.os_detection:
+        print("Performing OS Detection...")
         os = os_detection(ip)
         print(f"Operating system: {os}")
     elif args.discover_devices:
