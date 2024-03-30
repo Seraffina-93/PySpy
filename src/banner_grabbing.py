@@ -1,15 +1,19 @@
+import json
 import requests
 import ssl
 import socket
 
 def banner_grabbing(target, port):
+    # Load configuration
+    with open('config.json', 'r') as config_file:
+        config = json.load(config_file)
     try:
         certificate = None
         context = ssl.create_default_context()
         if port == 443:
             url = f"https://{target}"
             with context.wrap_socket(socket.socket(), server_hostname=target) as s:
-                s.settimeout(5)
+                s.settimeout(config["timeout"])
                 try:
                     s.connect((target, 443))
                     certificate = s.getpeercert()

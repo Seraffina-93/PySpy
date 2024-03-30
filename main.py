@@ -21,6 +21,10 @@ from src.http_header_evaluation import http_header_evaluation
 from src.device_discovery import discover_devices 
 
 def main():
+    # Load configuration
+    with open('config.json', 'r') as config_file:
+        config = json.load(config_file)
+    
     # Create object ArgumentParser to get arguments from command line
     parser = argparse.ArgumentParser(description="Network Scanning Tool")
 
@@ -115,7 +119,7 @@ def main():
             ports = [i for i in range(1, 65537)]
     else:
         print(colored("Using default ports", "yellow"))
-        ports = [20, 21, 22, 53, 80, 123, 179, 443, 500, 587, 3389]
+        ports = config["default_ports"]
 
     # Run the selected function
     if args.syn_scan:

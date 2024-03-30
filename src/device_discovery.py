@@ -1,3 +1,4 @@
+import json
 import socket
 from scapy.layers.inet import IP, ICMP
 from scapy.layers.l2 import ARP, Ether
@@ -5,6 +6,10 @@ from scapy.all import srp, sr1
 
 
 def discover_devices():
+    # Load configuration
+    with open('config.json', 'r') as config_file:
+        config = json.load(config_file)
+    
     devices = []
 
     # Perform ARP ping to find devices
@@ -18,7 +23,7 @@ def discover_devices():
     # Perform TCP ping to test connection
     for device in devices:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(1)
+        sock.settimeout(config["timeout"])
         try:
             result = sock.connect_ex((device["ip"], 80)) == 0
             device["tcp_ping"] = result
@@ -29,7 +34,7 @@ def discover_devices():
     # Perform UDP ping to test connection
     for device in devices:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.settimeout(1)
+        sock.settimeout(config["timeout"])
         try:
             sock.sendto(b"PING", (device["ip"], 80))
             data, _ = sock.recvfrom(1024)
